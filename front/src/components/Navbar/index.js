@@ -9,6 +9,7 @@ const Navbar = () => {
           Siigo - Facturación e Inventario
         </h3>
         <div className='d-flex align-items-center gap-3'>
+          <Link to="/" className='btn btn-outline-light'>Sucursales</Link>
           <Link to="/Inventario" className='btn btn-outline-light'>Inventario</Link>
           <Link to="/Facturacion" className='btn btn-outline-light'>Facturación</Link>
         </div>

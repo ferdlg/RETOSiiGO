@@ -85,6 +85,10 @@ const Inventario = () =>{
                                 <span className="input-group-text"><i className="fa-solid fa-tag pe-2"></i>Producto:</span>
                                 <input type="text" className="form-control" placeholder="Producto"/>
                             </div>
+                            <div className="input-group mb-3">
+                                <span className="input-group-text"><i className="fa-solid fa-list pe-2"></i>Cantidad:</span>
+                                <input type="number" className="form-control" placeholder="0"/>
+                            </div>
                         </div>
                         <div className="modal-footer">
                             <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Close</button>

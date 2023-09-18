@@ -4,6 +4,7 @@ import { showAlert } from "./utilities"
 import Inventario from './pages/Inventario';
 import Navbar from "./components/Navbar";
 import Facturacion from "./pages/Facturacion";
+import Sucursales from "./pages/Sucursales";
 import './App.css';
 
 function App() {
@@ -18,6 +19,7 @@ function App() {
       <Routes>
         <Route path='/inventario' element={<Inventario/>}/>
         <Route path='/facturacion' element={<Facturacion/>}/>
+        <Route path='/' element={<Sucursales/>}/>
       </Routes>
     </BrowserRouter>
   );
