@@ -37,6 +37,21 @@ class Factura(models.Model):
     class Meta:
         db_table = 'factura'
 
+class estadoVenta(models.Model):
+    id_estado_venta =models.AutoField(db_column='ID_ESTADO_VENTA', primary_key=True)
+    nombre_estado= models.CharField(db_column='NOMBRE_ESTADO', max_length=50, blank=True, null=True)
+
+    class Meta:
+        db_table='EstadoVenta'
+
+class Venta(models.Model):
+    id_venta= models.AutoField(db_column='ID_VENTA', primary_key=True)
+    id_factura_kf =models.ForeignKey('Factura', models.DO_NOTHING, db_column='ID_FACTURA_FK', blank=True, null=True)  # 
+    id_detalle_fk = models.ForeignKey('DetalleFactura', models.DO_NOTHING, db_column='ID_DETALLE_FK', blank=True, null=True)
+    id_estado_venta_fk =models.ForeignKey('estadoVenta', models.DO_NOTHING, db_column='ID_ESTADO_VENTA_FK', blank=True, null=True)
+
+    class Meta:
+        db_table = 'Venta'  
 
 class Inventario(models.Model):
     id_producto_fk = models.ForeignKey('Producto', models.DO_NOTHING, db_column='ID_PRODUCTO_FK', blank=True, null=True)  # Field name made lowercase.
