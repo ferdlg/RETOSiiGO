@@ -7,7 +7,7 @@ import json
 
 class FacturaView(View):
 
-    def verFactura():
+    def verFactura(self, request):
         factura = Factura.objects.all()
         serializer = FacturaSerializer(factura, many = True)
         if len(factura)>0:
@@ -18,10 +18,12 @@ class FacturaView(View):
     
     def crearFactura(self, request):
         json_data = json.loads(request.body)
-        #obtener campos foraneos        
+        #obtener el valor del campo en json        
         id_sucursal = json_data['id_sucursal_fk']
+        #obtener la instancia del campo
+        sucursal = Sucursal.objects.get(id_sucursal = id_sucursal)
         Factura.objects.create(
-            id_sucursal_fk = id_sucursal
+            id_sucursal_fk = sucursal
         )
         datos = {'message':'factura registrada'}
         return JsonResponse(datos)
