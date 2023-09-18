@@ -26,12 +26,15 @@ class DetalleFacturaView(View):
         #obtener la instancia con la fk correspondiente
         usuario = Usuario.objects.get(id_usuario=id_usuario)
         id_factura=json_data['id_factura_fk']
+        factura = Factura.objects.get(id_factura=id_factura)
         id_producto =json_data['id_producto_fk']
+        producto = Producto.objects.get(id_producto=id_producto)
         #crear instancia detalleFactura
         DetalleFactura.objects.create(
-                id_usuario_fk= id_usuario,
-                id_factura_fk= id_factura,
-                id_producto_fk= id_producto,
+                id_usuario_fk= usuario,
+                id_factura_fk= factura,
+                id_producto_fk= producto,
                 cantidad_detalle = json_data['cantidad_detalle']
         )
         datos ={'message':'Detalle de factura registrado'}
+        return JsonResponse(datos)
