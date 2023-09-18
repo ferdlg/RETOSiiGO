@@ -1,15 +1,15 @@
 import django.dispatch
 from django.dispatch import Signal, receiver
-from models import Inventario, Bodega, Producto, Proveedor
+from models import Inventario, Bodega, Producto, Proveedor, estadoVenta, Venta
 from django.core.mail import send_mail
 
-#definir la señal
-correo_proveedor = django.dispatch.Signal
+#definir la señal de notificar al proveedor
+correo_proveedor = django.dispatch.Signal()
 #crear un receptor, que puede ser funcion
 @receiver(correo_proveedor) 
 def notificarProveedor(sender, **kawargs):
     producto = sender
-    inventario = Inventario.objects.get(id_producto_fk = producto)
+    Inventario = Inventario.objects.get(id_producto_fk = producto)
     cantidad_producto = Inventario.cantidad_producto
     if cantidad_producto in Inventario <10:
         proveedor = Producto.id_proveedor_fk
@@ -21,3 +21,11 @@ def notificarProveedor(sender, **kawargs):
             'tu_correo@gmail.com',  # Remitente
             [proveedor.email],  # Destinatario
         )
+
+#producto de nuevo en stock, notificacion 
+
+correo_sucursal = django.dispatch.Signal()
+@receiver(correo_sucursal)
+def notificarSucursal(sender, **Kawargs):
+    factura = sender
+    venta = Venta.objects.get(id_estado_venta_fk = )
