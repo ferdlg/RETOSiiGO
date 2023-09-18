@@ -31,7 +31,7 @@ class Empresa(models.Model):
 
 class Factura(models.Model):
     id_factura = models.AutoField(db_column='ID_FACTURA', primary_key=True)  # Field name made lowercase.
-    fecha_factura = models.DateTimeField(db_column='FECHA_FACTURA', blank=True, null=True)  # Field name made lowercase.
+    fecha_factura = models.DateTimeField(db_column='FECHA_FACTURA', auto_now_add= True)  # Field name made lowercase.
     id_sucursal_fk = models.ForeignKey('Sucursal', models.DO_NOTHING, db_column='ID_SUCURSAL_FK', blank=True, null=True)  # Field name made lowercase.
 
     class Meta:
