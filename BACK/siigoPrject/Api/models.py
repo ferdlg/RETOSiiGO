@@ -51,7 +51,7 @@ class Producto(models.Model):
     nombre_producto = models.CharField(db_column='NOMBRE_PRODUCTO', max_length=50, blank=True, null=True)  # Field name made lowercase.
     precio_producto = models.CharField(db_column='PRECIO_PRODUCTO', max_length=50, blank=True, null=True)  # Field name made lowercase.
     iva = models.DecimalField(db_column='IVA', max_digits=5, decimal_places=2, blank=True, null=True)  # Field name made lowercase.
-
+    id_proveedor_fk = models.ForeignKey('Proveedor', models.DO_NOTHING, db_column='ID_PROVEEDOR_FK', blank=True, null=True)
     class Meta:
         managed = False
         db_table = 'producto'
