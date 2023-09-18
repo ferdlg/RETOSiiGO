@@ -1,0 +1,29 @@
+.carrito, .catalogo{
+    height: calc(100vh - 5em - 2em);
+    margin: 1em;
+    overflow: auto;
+}
+
+.containerDetallesCarrito{
+    height: calc(100vh - 5em - 2em - 6em);
+    overflow: auto;
+}
+
+.detalleCarrito h5{
+    text-align: center;
+}
+
+.detalleCarrito div{
+    display: flex;
+    justify-content: space-around;
+}
+
+.detalleCarrito button{
+    height: 2em;
+    width: 2em;
+    display: flex;
+    height: 2em;
+    width: 2em;
+    justify-content: center;
+    align-items: center;
+}

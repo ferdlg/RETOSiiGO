@@ -2,8 +2,9 @@ import { useEffect } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom"
 import { showAlert } from "./utilities"
 import Inventario from './pages/Inventario';
-import './App.css';
 import Navbar from "./components/Navbar";
+import Facturacion from "./pages/Facturacion";
+import './App.css';
 
 function App() {
 
@@ -16,6 +17,7 @@ function App() {
       <Navbar/>        
       <Routes>
         <Route path='/inventario' element={<Inventario/>}/>
+        <Route path='/facturacion' element={<Facturacion/>}/>
       </Routes>
     </BrowserRouter>
   );
