@@ -14,7 +14,7 @@ class VentaView(View):
             datos = {'message':'succes', 'facturas': serializer.data}
         else:
             datos= {'message':'Facturas no encontradas'}
-        return datos
+        return JsonResponse(datos)
     
     def crearVenta(self, request):
         json_data = json.loads(request.body)
