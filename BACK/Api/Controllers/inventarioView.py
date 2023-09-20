@@ -1,27 +1,27 @@
-from models import Inventario, Producto
+from models import Inventarios, Productos
 from django.http.request import HttpRequest
 from django.http.response import JsonResponse
-from serializers import InventarioSerializer
+from serializers import InventariosSerializer
 from django.views import View
 import json
 
-class InventarioView(View):
+class InventariosView(View):
 
-    def verInventario(self, request):
-        inventario = Inventario.objects.all()
-        serializer = InventarioSerializer(inventario, many=True)
+    def verInventarios(self, request):
+        inventario = Inventarios.objects.all()
+        serializer = InventariosSerializer(inventario, many=True)
         if len(inventario)>0:
             datos = {'message':'succes', 'Inventario': serializer.data}
         else:
             datos= {'message':'Inventario no encontrado'}
         return datos
     
-    def addInventario(self, request):
+    def addInventarios(self, request):
         json_data = json.loads.body(request.body)
         #obtener valore en el json
         id_producto = json_data['id_producto_fk']
-        producto = Producto.objects.get(id_producto=id_producto)
-        Inventario.objects.create(
+        producto = Productos.objects.get(id_producto=id_producto)
+        Inventarios.objects.create(
             id_producto_fk = producto,
             cantidad_producto = json_data['cantidad_producto']
         )

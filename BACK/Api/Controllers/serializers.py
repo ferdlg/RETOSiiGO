@@ -1,47 +1,52 @@
 from rest_framework import serializers
-from models import Empresa, Bodega, Proveedor, Sucursal, Producto, Inventario, Factura, DetalleFactura, Usuario
+from models import Roles, Usuarios, Personas, Proveedores, Productos, Ventas, DetalleVentas, Bodegas, Sucursales, Inventarios
 
-class EmpresaSerializer(serializers.ModelSerializerSerializer):
+class RolesSerializer(serializers.ModelSerializerSerializer):
     class Meta:
-        model = Empresa
+        model = Roles
+        fields = '__all__'
+    
+class UsuariosSerializer(serializers.ModelSerializerSerializer):
+    class Meta:
+        model = Usuarios
         fields = '__all__'
 
-class BodegaSerializer(serializers.ModelSerializerSerializer):
+class PersonasSerializer(serializers.ModelSerializerSerializer):
     class Meta:
-        model = Bodega
+        model = Personas
         fields = '__all__'
 
-class ProveedorSerializer(serializers.ModelSerializer):
+class ProveedoresSerializer(serializers.ModelSerializerSerializer):
     class Meta:
-        model= Proveedor
+        model = Proveedores
+        fields = '__all__'
+    
+class ProductosSerializer(serializers.ModelSerializerSerializer):
+    class Meta:
+        model = Productos
         fields = '__all__'
 
-class SucursalSerializer(serializers.ModelSerializer):
+class VentasSerializer(serializers.ModelSerializerSerializer):
     class Meta:
-        model = Sucursal
+        model = Ventas
         fields = '__all__'
 
-class ProductoSerializer(serializers.ModelSerializer):
+class DetalleVentasSerializer(serializers.ModelSerializerSerializer):
     class Meta:
-        model = Producto
+        model = DetalleVentas
         fields = '__all__'
 
-class FacturaSerializer(serializers.ModelSerializer):
+class SucursalesSerializer(serializers.ModelSerializerSerializer):
     class Meta:
-        model = Factura
+        model = Sucursales
+        fields = '__all__'
+    
+class BodegasSerializer(serializers.ModelSerializerSerializer):
+    class Meta:
+        model = Bodegas
         fields = '__all__'
 
-class InventarioSerializer(serializers.ModelSerializer):
+class InventariosSerializer(serializers.ModelSerializerSerializer):
     class Meta:
-        model = Inventario
-        fields = '__all__'
-
-class DetalleFacturaSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = DetalleFactura
-        fields = '__all__'
-
-class UsuarioSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Usuario
-        fields = '__all__'
+        model = Inventarios
+        fields = '__all__'    

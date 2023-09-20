@@ -1,18 +1,18 @@
-from models import DetalleFactura, Usuario, Factura, Producto
+from models import DetalleVentas, Usuarios, Ventas, Productos
 from django.views import View
 from django.http.request import HttpRequest
 from django.http.response import JsonResponse
-from serializers import DetalleFacturaSerializer
+from serializers import DetalleVentasSerializer
 import json
 
-class DetalleFacturaView(View):
+class DetalleVentasView(View):
 
     def verDetalleFactura(self,request):
         #obtener instancias de la tabla
-        detalle_factura = DetalleFactura.objects.all()
+        detalle_venta = DetalleVentas.objects.all()
         #traer el serializador
-        serializer = DetalleFacturaSerializer(detalle_factura, many=True)
-        if len(detalle_factura)>0:
+        serializer = DetalleVentasSerializer(detalle_venta, many=True)
+        if len(detalle_venta)>0:
             datos = {'message':'succes','Detalles de facturas': serializer.data}
         else:
             datos = {'message':'Detalles no encontrados...'}
@@ -24,17 +24,17 @@ class DetalleFacturaView(View):
         #obtener valore en el json
         id_usuario=json_data['id_usuario_fk']
         #obtener la instancia con la fk correspondiente
-        usuario = Usuario.objects.get(id_usuario=id_usuario)
-        id_factura=json_data['id_factura_fk']
-        factura = Factura.objects.get(id_factura=id_factura)
+        usuario = Usuarios.objects.get(id_usuario=id_usuario)
+        id_venta=json_data['id_venta_fk']
+        venta = Ventas.objects.get(id_factura=id_venta)
         id_producto =json_data['id_producto_fk']
-        producto = Producto.objects.get(id_producto=id_producto)
+        producto = Productos.objects.get(id_producto=id_producto)
         #crear instancia detalleFactura
-        DetalleFactura.objects.create(
+        DetalleVentas.objects.create(
                 id_usuario_fk= usuario,
-                id_factura_fk= factura,
+                id_venta_fk= venta,
                 id_producto_fk= producto,
-                cantidad_detalle = json_data['cantidad_detalle']
+                cantidad_producto = json_data['cantidad_producto']
         )
-        datos ={'message':'Detalle de factura registrado'}
+        datos ={'message':'Detalle de venta registrado'}
         return JsonResponse(datos)
