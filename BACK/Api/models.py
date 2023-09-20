@@ -76,7 +76,7 @@ class Proveedores(models.Model):
     class Meta:
         managed = False
         db_table = 'proveedores'
-
+        #queso
 
 class Roles(models.Model):
     id_rol = models.AutoField(primary_key=True)
