@@ -1,11 +1,11 @@
 import { useEffect } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom"
 import { showAlert } from "./utilities"
-import Inventario from './pages/Inventario';
 import Navbar from "./components/Navbar";
+import Footer from "./components/Footer";
+import Inventario from './pages/Inventario';
 import Facturacion from "./pages/Facturacion";
 import Sucursales from "./pages/Sucursales";
-import './App.css';
 
 function App() {
 
@@ -15,12 +15,15 @@ function App() {
 
   return (
     <BrowserRouter>
-      <Navbar/>        
-      <Routes>
-        <Route path='/inventario' element={<Inventario/>}/>
-        <Route path='/facturacion' element={<Facturacion/>}/>
-        <Route path='/' element={<Sucursales/>}/>
-      </Routes>
+      <Navbar/>
+      <div className="pageContainer overflow-auto">
+        <Routes>
+          <Route path='/inventario' element={<Inventario/>}/>
+          <Route path='/facturacion' element={<Facturacion/>}/>
+          <Route path='/' element={<Sucursales/>}/>
+        </Routes>
+      </div>      
+      <Footer/>  
     </BrowserRouter>
   );
 }

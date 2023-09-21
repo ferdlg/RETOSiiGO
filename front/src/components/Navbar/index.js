@@ -3,18 +3,27 @@ import "./Navbar.css";
 
 const Navbar = () => {
   return (
-    <div className="bg-success bg-gradient navbar">
-      <div className="container d-flex justify-content-between p-3">
-        <h3 className='text-light'>
-          Siigo - Facturación e Inventario
-        </h3>
-        <div className='d-flex align-items-center gap-3'>
-          <Link to="/" className='btn btn-outline-light'>Sucursales</Link>
-          <Link to="/Inventario" className='btn btn-outline-light'>Inventario</Link>
-          <Link to="/Facturacion" className='btn btn-outline-light'>Facturación</Link>
+    <nav className="bg_azulOscuro navbar navbar-expand-lg">
+      <div className="container-fluid container d-flex">
+        <h1 className="navbar-brand text-light" >Siigo - Facturación e Inventario</h1>
+        <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navBar" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span className="navbar-toggler-icon"></span>
+        </button>
+        <div className="collapse navbar-collapse" id="navBar">
+          <ul className="navbar-nav opcionesMenu d-flex justify-content-end gap-2">
+            <li className="nav-item">
+              <Link to="/" className='btn btn-outline-light'>Sucursales</Link>
+            </li>
+            <li className="nav-item">
+              <Link to="/Inventario" className='btn btn-outline-light'>Inventario</Link>
+            </li>
+            <li className="nav-item">
+              <Link to="/Facturacion" className='btn btn-outline-light'>Facturación</Link>
+            </li>
+          </ul>
         </div>
       </div>
-    </div>
+    </nav>
   )
 }
 

@@ -1,3 +1,8 @@
 .navbar{
-    height: 5em;
+    min-height: 4em;
+    z-index: 1;
+}
+
+.opcionesMenu{
+    width: 100%;
 }
