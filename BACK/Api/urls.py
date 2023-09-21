@@ -6,9 +6,12 @@ from .Controllers.sucursalesView import SucursalesView
 from django.urls import path
 
 urlpatterns = [
-    path('ventas/',VentaView.as_view() , name="venta vista"),
-    path('detalleVentas/',DetalleVentasView.as_view(), name="detalle ventas vista"),
-    path('detalleVenta/<int:id>',DetalleVentasView.as_view(), name="detalle venta vista"),
-    path('inventario/',InventariosView.as_view(), name="Inventario"),
-    path('listsucursales/', SucursalesView.as_view(), name="List-Sucursales")
+    path('ventas/',VentaView.as_view() , name="venta-vista"),
+    path('detalleVentas/',DetalleVentasView.as_view(), name="detalle-ventas-vista"),
+    path('detalleVenta/<int:id>',DetalleVentasView.as_view(), name="detalle-venta-vista"),
+    path('inventarios/',InventariosView.as_view(), name="Inventarios"),
+    path('Inventarios/<int:id>',InventariosView.as_view(), name="Inventario"),
+    path('listsucursales/', SucursalesView.as_view(), name="List-Sucursales"),
+    path('listsucursales/<int:id>',SucursalesView.as_view(), name="sucursal-vista"),
+
 ]
