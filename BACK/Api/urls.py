@@ -7,6 +7,7 @@ from django.urls import path
 
 urlpatterns = [
     path('ventas/',VentaView.as_view() , name="venta-vista"),
+    path('ventas/<int:id>',VentaView.as_view(), name="detalle-venta-vista"),
     path('detalleVentas/',DetalleVentasView.as_view(), name="detalle-ventas-vista"),
     path('detalleVenta/<int:id>',DetalleVentasView.as_view(), name="detalle-venta-vista"),
     path('inventarios/',InventariosView.as_view(), name="Inventarios"),

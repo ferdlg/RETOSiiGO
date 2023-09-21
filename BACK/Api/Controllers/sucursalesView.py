@@ -14,7 +14,6 @@ class SucursalesView(View):
         return super().dispatch(request, *args, **kwargs)
 
     def get(self, request, id=None):
-        if request.method == 'GET':
             if id is not None and id > 0:
                 sucursal = Sucursales.objects.filter(id_sucursal=id).first()
                 if sucursal:
@@ -32,13 +31,10 @@ class SucursalesView(View):
                 else:
                     datos = {'message': 'No hay sucursales encontradas'}
                 return JsonResponse(datos)
-        else:
-            return JsonResponse({'message': 'Método no permitido'}, status=405)
     
     def post(self, request):
-        if request.method == 'POST':
-            json_data = json.loads(request.body)
-            try:
+        json_data = json.loads(request.body)
+        try:
                 id_bodega = json_data['id_bodega_fk']
                 bodega = Bodegas.objects.get(id_bodega=id_bodega)
             
@@ -51,18 +47,14 @@ class SucursalesView(View):
                 )
                 datos = {'message': 'Sucursal registrada'}
                 return JsonResponse(datos)
-            except json.JSONDecodeError:
+        except json.JSONDecodeError:
                 datos = {'error': 'El formato JSON es incorrecto'}
                 return JsonResponse(datos, status=400)
-            except Bodegas.DoesNotExist:
+        except Bodegas.DoesNotExist:
                 datos = {'error': 'La bodega seleccionada no existe'}
                 return JsonResponse(datos, status=400)
-        else:
-            datos = {'error': 'Solicitud incorrecta'}
-        return JsonResponse(datos)
     
     def put(self, request, id):
-        if request.method == 'PUT':
             sucursal = Sucursales.objects.get(id_sucursal=id)
             json_data = json.loads(request.body)
             try:
@@ -77,6 +69,9 @@ class SucursalesView(View):
                 
                 if 'email' in json_data:
                     sucursal.email = json_data['email']
+
+                if 'estado_inactiva' in json_data:
+                    sucursal.estado_inactiva = json_data['estado_inactiva']
 
                 if 'id_bodega_fk' in json_data:
                     id_bodega = json_data['id_bodega_fk']
@@ -93,17 +88,5 @@ class SucursalesView(View):
             except Sucursales.DoesNotExist:
                 datos = {'error': 'La sucursal seleccionada no existe'}
                 return JsonResponse(datos, status=400)        
-        else:
-            datos = {'message': 'Solicitud incorrecta'}
-        return JsonResponse(datos)   
+           
     
-    def delete(self, request, id):
-        if request.method == 'DELETE':
-            sucursal = get_object_or_404(Sucursales, id_sucursal=id)
-            sucursal.delete()
-
-            datos = {'message': 'Sucursal eliminada con éxito'}
-        else:
-            datos = {'message': 'Solicitud incorrecta'}
-        
-        return JsonResponse(datos)

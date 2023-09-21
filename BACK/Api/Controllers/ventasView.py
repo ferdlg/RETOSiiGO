@@ -7,14 +7,22 @@ import json
 
 class VentaView(View):
 
-    def get(self, request):
-        venta = Ventas.objects.all()
-        serializer = VentasSerializer(venta, many = True)
-        if len(venta)>0:
-            datos = {'message':'succes', 'facturas': serializer.data}
+    def get(self, request, id):
+        if id is not None and id > 0:
+                venta = Ventas.objects.filter(id_venta=id).first()
+                if venta:
+                    serializer = VentasSerializer(venta)
+                    datos = {'message': 'success', 'Venta': serializer.data}
+                else:
+                    datos = {'message':'No hay ventas encontradas' }
         else:
-            datos= {'message':'Facturas no encontradas'}
-        return JsonResponse(datos)
+            venta = Ventas.objects.all()
+            serializer = VentasSerializer(venta, many=True)
+            if len(venta) > 0:
+                datos = {'message': 'success', 'Ventas': serializer.data}
+            else:
+                datos = {'message': 'No hay ventas encontradas'}
+            return JsonResponse(datos)
     
     def post(self, request):
         json_data = json.loads(request.body)#obtener el valor del campo en json 
