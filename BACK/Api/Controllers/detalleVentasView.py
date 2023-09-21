@@ -36,6 +36,7 @@ class DetalleVentasView(View):
                 venta = Ventas.objects.get(id_venta=id_venta)
                 id_producto =json_data['id_producto_fk']
                 producto = Productos.objects.get(id_producto=id_producto)
+                
                 DetalleVentas.objects.create(         #crear instancia detalleVentas
                     id_usuario_fk= usuario,
                     id_venta_fk= venta,
