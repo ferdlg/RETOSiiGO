@@ -1,19 +1,35 @@
 from ..models import Ventas, Sucursales, Ventas, Personas
 from django.http.request import HttpRequest
 from django.http.response import JsonResponse
+from django.utils.decorators import method_decorator
+from django.views.decorators.csrf import csrf_exempt
 from .serializers import VentasSerializer
 from django.views import View
 import json
 
 class VentaView(View):
 
-    def get(self, request):
-        venta = Ventas.objects.all()
-        serializer = VentasSerializer(venta, many = True)
-        if len(venta)>0:
-            datos = {'message':'succes', 'facturas': serializer.data}
+    @method_decorator(csrf_exempt) 
+    def dispatch(self, request, *args, **kwargs):
+        return super().dispatch(request, *args, **kwargs)
+
+
+    def get(self, request, id = None):
+        if id is not None and id > 0:
+                venta = Ventas.objects.filter(id_venta=id).first()
+                if venta:
+                    serializer = VentasSerializer(venta)
+                    datos = {'message': 'success', 'Venta': serializer.data}
+                else:
+                    datos = {'message':'No hay ventas encontradas' }
+                return JsonResponse(datos)
         else:
-            datos= {'message':'Facturas no encontradas'}
+            venta = Ventas.objects.all()
+            serializer = VentasSerializer(venta, many=True)
+            if len(venta) > 0:
+                datos = {'message': 'success', 'Ventas': serializer.data}
+            else:
+                datos = {'message': 'No hay ventas encontradas'}
         return JsonResponse(datos)
     
     def post(self, request):
@@ -37,8 +53,8 @@ class VentaView(View):
                 datos = {'error': 'La persona seleccionada no existe'}
                 return JsonResponse(datos, status=400)
     
-    def put(request, id):
-            venta = Ventas.objects.get(id_detalleVenta = id)
+    def put(self,request, id):
+            venta = Ventas.objects.get(id_venta = id)
             json_data = json.loads(request.body)
             try:
                 if 'id_persona_fk' in json_data:
@@ -54,7 +70,6 @@ class VentaView(View):
                 
                 venta.save()
                 datos = {'message':' Venta actualizada con exito'}
-
             except json.JSONDecodeError:
                 datos={'message':'El formato JSON es incorrecto'}
                 return JsonResponse(datos, status = 400)
@@ -63,4 +78,3 @@ class VentaView(View):
                 datos = {'error':'La venta seleccionada no existe'}
                 return JsonResponse(datos, status = 400)
             return JsonResponse(datos)
-    
