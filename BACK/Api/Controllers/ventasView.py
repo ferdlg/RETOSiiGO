@@ -17,16 +17,25 @@ class VentaView(View):
         return JsonResponse(datos)
     
     def post(self, request):
-        json_data = json.loads(request.body)
-        #obtener el valor del campo en json        
-        id_sucursal = json_data['id_sucursal_fk']
-        #obtener la instancia del campo
-        sucursal = Sucursales.objects.get(id_sucursal = id_sucursal)
-        Ventas.objects.create(
-            id_sucursal_fk = sucursal
-        )
-        datos = {'message':'Venta registrada'}
-        return JsonResponse(datos)
+        json_data = json.loads(request.body)#obtener el valor del campo en json 
+        try:
+            id_persona = json_data['id_persona_fk']#obtener la instancia del campo
+            persona = Personas.objects.get(id_per7 = id_persona)
+        
+            Ventas.objects.create(
+                id_persona_fk = persona,
+                fecha_venta = json_data['fecha_venta'],
+                encola_estado = json_data['encola_estado'],
+                total = json_data['total'],
+            )
+            datos = {'message':'Venta registrada'}
+            return JsonResponse(datos)
+        except json.JSONDecodeError:
+                datos = {'error': 'El formato JSON es incorrecto'}
+                return JsonResponse(datos, status=400)
+        except Personas.DoesNotExist:
+                datos = {'error': 'La persona seleccionada no existe'}
+                return JsonResponse(datos, status=400)
     
     def put(request, id):
             venta = Ventas.objects.get(id_detalleVenta = id)
