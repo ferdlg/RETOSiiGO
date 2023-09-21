@@ -16,7 +16,7 @@ function App() {
   return (
     <BrowserRouter>
       <Navbar/>
-      <div className="pageContainer">
+      <div className="pageContainer overflow-auto">
         <Routes>
           <Route path='/inventario' element={<Inventario/>}/>
           <Route path='/facturacion' element={<Facturacion/>}/>

@@ -30,7 +30,10 @@ h1{
 }
 
 .pageContainer{
-  height: calc(100vh - 6em);
+  position: absolute;
+  width: 100%;
+  top: 4em;
+  height: calc(100vh - 2em - 4em);
 }
 
 /* Background color */
