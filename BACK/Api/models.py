@@ -6,7 +6,7 @@ class Bodegas(models.Model):
     nombre_bodega = models.CharField(max_length=30, blank=True, null=True)
 
     class Meta:
-        managed = False
+        
         db_table = 'bodegas'
 
 
@@ -18,7 +18,7 @@ class DetalleVentas(models.Model):
     subtotal = models.FloatField(blank=True, null=True)
 
     class Meta:
-        managed = False
+        
         db_table = 'detalle_ventas'
 
 
@@ -30,7 +30,7 @@ class Inventarios(models.Model):
     stock = models.IntegerField(blank=True, null=True)
 
     class Meta:
-        managed = False
+        
         db_table = 'inventarios'
 
 
@@ -39,7 +39,7 @@ class Permisos(models.Model):
     nombre_permiso = models.CharField(max_length=30, blank=True, null=True)
 
     class Meta:
-        managed = False
+        
         db_table = 'permisos'
 
 
@@ -53,7 +53,7 @@ class Personas(models.Model):
     id_sucursal_fk = models.ForeignKey('Sucursales', models.DO_NOTHING, db_column='id_sucursal_fk', blank=True, null=True)
 
     class Meta:
-        managed = False
+        
         db_table = 'personas'
 
 
@@ -64,7 +64,7 @@ class Productos(models.Model):
     iva = models.FloatField(blank=True, null=True)
 
     class Meta:
-        managed = False
+        
         db_table = 'productos'
 
 
@@ -74,16 +74,16 @@ class Proveedores(models.Model):
     id_producto_fk = models.ForeignKey(Productos, models.DO_NOTHING, db_column='id_producto_fk', blank=True, null=True)
 
     class Meta:
-        managed = False
+        
         db_table = 'proveedores'
-        #queso
+
 
 class Roles(models.Model):
     id_rol = models.AutoField(primary_key=True)
     nombre_rol = models.CharField(max_length=20, blank=True, null=True)
 
     class Meta:
-        managed = False
+        
         db_table = 'roles'
 
 
@@ -92,7 +92,7 @@ class RolesHasPermisos(models.Model):
     id_permiso_fk = models.ForeignKey(Permisos, models.DO_NOTHING, db_column='id_permiso_fk', blank=True, null=True)
 
     class Meta:
-        managed = False
+        
         db_table = 'roles_has_permisos'
 
 
@@ -102,10 +102,11 @@ class Sucursales(models.Model):
     ciudad = models.CharField(max_length=30, blank=True, null=True)
     direccion = models.CharField(max_length=50, blank=True, null=True)
     email = models.CharField(max_length=50, blank=True, null=True)
+    estado_inactiva = models.IntegerField(default=False)
     id_bodega_fk = models.ForeignKey(Bodegas, models.DO_NOTHING, db_column='id_bodega_fk', blank=True, null=True)
 
     class Meta:
-        managed = False
+        
         db_table = 'sucursales'
 
 
@@ -117,7 +118,7 @@ class Usuarios(models.Model):
     password = models.CharField(max_length=200, blank=True, null=True)
 
     class Meta:
-        managed = False
+        
         db_table = 'usuarios'
 
 
@@ -125,9 +126,9 @@ class Ventas(models.Model):
     id_venta = models.AutoField(primary_key=True)
     id_persona_fk = models.ForeignKey(Personas, models.DO_NOTHING, db_column='id_persona_fk', blank=True, null=True)
     fecha_venta = models.DateTimeField(blank=True, null=True)
-    encola_estado = models.IntegerField(blank=True, null=True)
+    encola_estado = models.IntegerField(default=False)
     total = models.FloatField(blank=True, null=True)
 
     class Meta:
-        managed = False
+        
         db_table = 'ventas'
