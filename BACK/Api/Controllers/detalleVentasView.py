@@ -7,16 +7,24 @@ import json
 
 class DetalleVentasView(View):
 
-    def verDetalleVentas(self,request):
-        #obtener instancias de la tabla
-        detalle_venta = DetalleVentas.objects.all()
-        #traer el serializador
-        serializer = DetalleVentasSerializer(detalle_venta, many=True)
-        if len(detalle_venta)>0:
-            datos = {'message':'succes','Detalles de ventas': serializer.data}
+    def verDetalleVentas(self, request, id):
+        if id is not None and id>0:
+            detalle = DetalleVentas.objects.filter(id_detalle=id).first()#el primer objeto encontrado que coincida con el id
+            if (detalle):
+                serializer = DetalleVentasSerializer(detalle)
+                datos = {'message':'Succes','Detalle':serializer.data}
+            else :
+                datos ={'error':'Detalle no encontrado'}
+            return JsonResponse(datos)
+        
         else:
-            datos = {'message':'Detalles no encontrados...'}
-        return datos
+            detalle_venta = DetalleVentas.objects.all()#obtener instancias de la tabla
+            serializer = DetalleVentasSerializer(detalle_venta, many=True) #traer el serializador
+            if len(detalle_venta)>0:
+                datos = {'message':'succes','Detalles de ventas': serializer.data}
+            else:
+                datos = {'message':'No hay detalles encontrados...'}
+        return JsonResponse(datos)
     
     def crearDetalleVentas(request):
         if request.method == 'POST':
@@ -45,26 +53,27 @@ class DetalleVentasView(View):
             datos = {'message':'Solicitud incorrecta'}
         return JsonResponse(datos)
     
-    def actualizarDetalleVenta(request):
+    def actualizarDetalleVenta(request, id):
         if request.method =='PUT':
+            DetalleVenta = DetalleVentas.objects.get(id_detalleVenta = id)
             json_data = json.loads(request.body)
             try:
                 if 'id_producto_fk' in json_data:
                     id_producto = json_data['id_producto_fk']
                     producto = Productos.objects.get(id_producto=id_producto)
-                    DetalleVentas.id_producto_fk= producto
+                    DetalleVenta.id_producto_fk= producto
                 
                 if 'cantidad_producto' in json_data:
-                    DetalleVentas.cantidad_producto=json_data['cantidad_producto']
+                    DetalleVenta.cantidad_producto=json_data['cantidad_producto']
                 
-                DetalleVentas.save()
+                DetalleVenta.save()
                 datos = {'message':'Detalle de venta actualizado con exito'}
 
             except json.JSONDecodeError:
                 datos={'message':'El formato JSON es incorrecto'}
                 return JsonResponse(datos, status = 400)
             
-            except DetalleVentas.DoesNotExist:
+            except DetalleVenta.DoesNotExist:
                 datos = {'error':'El detalle seleccionado no existe'}
                 return JsonResponse(datos, status = 400)
         else:

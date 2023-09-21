@@ -8,7 +8,7 @@ import json
 
 class SucursalesView(View):
 
-    def verSucursales(self, request):
+    def verSucursales(self):
         sucursal = Sucursales.objects.all()
         serializer = SucursalesSerializer(sucursal, many= True)
 
@@ -19,12 +19,12 @@ class SucursalesView(View):
 
         return JsonResponse(datos)
     
-    def crearSucursales(self, request):
+    def crearSucursales(request):
 
         return
     
-    def actualizarSucursales(self, request):
+    def actualizarSucursales(request):
         return
     
-    def eliminarSucursales(sefl, request):
+    def eliminarSucursales(request):
         return
