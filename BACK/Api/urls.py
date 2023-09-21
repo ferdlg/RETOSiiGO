@@ -2,6 +2,7 @@ from django.contrib import admin
 from .Controllers.inventarioView import InventariosView
 from .Controllers.ventasView import VentaView
 from .Controllers.detalleVentasView import DetalleVentasView
+from .Controllers.sucursalesView import SucursalesView 
 from django.urls import path
 
 urlpatterns = [
@@ -9,4 +10,5 @@ urlpatterns = [
     path('detalleVentas/',DetalleVentasView.as_view(), name="detalle ventas vista"),
     path('detalleVenta/<int:id>',DetalleVentasView.as_view(), name="detalle venta vista"),
     path('inventario/',InventariosView.as_view(), name="Inventario"),
+    path('listsucursales/', SucursalesView.as_view(), name="List-Sucursales")
 ]

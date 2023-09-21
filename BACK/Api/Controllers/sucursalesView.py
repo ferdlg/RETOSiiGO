@@ -1,99 +1,109 @@
-from Api.models import Sucursales, Bodegas
-from .serializers import SucursalesSerializer
-from django.http import JsonResponse, request
-from django.shortcuts import get_object_or_404
 from django.views import View
+from django.http import JsonResponse
+from django.shortcuts import get_object_or_404
+from django.utils.decorators import method_decorator
+from django.views.decorators.csrf import csrf_exempt
 import json
-
-
+from ..models import Sucursales, Bodegas
+from .serializers import SucursalesSerializer  # Asegúrate de importar el serializador adecuado
 
 class SucursalesView(View):
-
-    def verSucursales(self, request, id = None):
-
-        if id is not None and id >0:
-            sucursal = Sucursales.objects.filter(id_sucursal = id).first
-            if(sucursal):
-                serializer = SucursalesSerializer(sucursal)
-                datos = {'message':'succes','Sucursal':serializer.data}
-            else:
-                datos = {'message':'No hay sucursales encontradas'}
-            return JsonResponse(datos)
         
-        else:
-            sucursal = Sucursales.objects.all()
-            serializer = SucursalesSerializer(sucursal, many= True)
-            if len(sucursal)>0:
-                datos = {'message':'succes','Sucursales:': serializer.data}
+    @method_decorator(csrf_exempt) 
+    def dispatch(self, request, *args, **kwargs):
+        return super().dispatch(request, *args, **kwargs)
+
+    def get(self, request, id=None):
+        if request.method == 'GET':
+            if id is not None and id > 0:
+                sucursal = Sucursales.objects.filter(id_sucursal=id).first()
+                if sucursal:
+                    serializer = SucursalesSerializer(sucursal)
+                    datos = {'message': 'success', 'Sucursal': serializer.data}
+                else:
+                    datos = {'message': 'No hay sucursales encontradas'}
+                return JsonResponse(datos)
+        
             else:
-                datos = {'message':'No hay sucursales encontradas'}
-        return JsonResponse(datos)
+                sucursal = Sucursales.objects.all()
+                serializer = SucursalesSerializer(sucursal, many=True)
+                if len(sucursal) > 0:
+                    datos = {'message': 'success', 'Sucursales': serializer.data}
+                else:
+                    datos = {'message': 'No hay sucursales encontradas'}
+                return JsonResponse(datos)
+        else:
+            return JsonResponse({'message': 'Método no permitido'}, status=405)
     
-    def crearSucursales(request):
-        if request.method =='POST':
+    def post(self, request):
+        if request.method == 'POST':
             json_data = json.loads(request.body)
             try:
                 id_bodega = json_data['id_bodega_fk']
                 bodega = Bodegas.objects.get(id_bodega=id_bodega)
             
                 Sucursales.objects.create(
-                    nombre_sucursal = json_data['nombre_sucursal'],
-                    ciudad = json_data['ciudad'],
-                    direccion = json_data['direccion'],
-                    email = json_data['email'],
-                    id_bodega_fk = bodega
+                    nombre_sucursal=json_data['nombre_sucursal'],
+                    ciudad=json_data['ciudad'],
+                    direccion=json_data['direccion'],
+                    email=json_data['email'],
+                    id_bodega_fk=bodega
                 )
-                datos = {'message':'Sucursal registrada'}
+                datos = {'message': 'Sucursal registrada'}
                 return JsonResponse(datos)
             except json.JSONDecodeError:
-                datos={'error','El formato JSON es incorrecto'}
-                return JsonResponse(datos, status = 400)
-            except bodega.DoesNotExist:
-                datos={'error':'La bodega seleccionada no existe'}
+                datos = {'error': 'El formato JSON es incorrecto'}
+                return JsonResponse(datos, status=400)
+            except Bodegas.DoesNotExist:
+                datos = {'error': 'La bodega seleccionada no existe'}
+                return JsonResponse(datos, status=400)
         else:
-            datos={'error':'Solicitud incorrecta'}
+            datos = {'error': 'Solicitud incorrecta'}
         return JsonResponse(datos)
     
-    def actualizarSucursales(request, id):
-        if request.method =='PUT':
+    def put(self, request, id):
+        if request.method == 'PUT':
             sucursal = Sucursales.objects.get(id_sucursal=id)
-            json_data= json.loads(request.body)
+            json_data = json.loads(request.body)
             try:
                 if 'nombre_sucursal' in json_data:
-                    Sucursales.nombre_sucursal = json_data['nombre_sucursal']
+                    sucursal.nombre_sucursal = json_data['nombre_sucursal']
                 
                 if 'ciudad' in json_data:
-                    Sucursales.ciudad = json_data['ciudad']
+                    sucursal.ciudad = json_data['ciudad']
 
                 if 'direccion' in json_data:
-                    Sucursales.direccion = json_data['direccion']
+                    sucursal.direccion = json_data['direccion']
                 
                 if 'email' in json_data:
-                    Sucursales.email = json_data['email']
+                    sucursal.email = json_data['email']
 
                 if 'id_bodega_fk' in json_data:
                     id_bodega = json_data['id_bodega_fk']
-                    bodega = Sucursales.objects.get(id_bodega = id_bodega)
-                    Sucursales.id_bodega_fk = bodega
+                    bodega = Bodegas.objects.get(id_bodega=id_bodega)
+                    sucursal.id_bodega_fk = bodega
 
+                sucursal.save()  # Guarda los cambios en la instancia de Sucursales
+
+                datos = {'message': 'Sucursal actualizada con éxito'}
             except json.JSONDecodeError:
-                datos={'message':'El formato JSON es incorrecto'}
-                return JsonResponse(datos, status = 400)
+                datos = {'message': 'El formato JSON es incorrecto'}
+                return JsonResponse(datos, status=400)
             
-            except sucursal.DoesNotExist:
-                datos = {'error':'La sucursal seleccionada no existe'}
-                return JsonResponse(datos, status = 400)        
+            except Sucursales.DoesNotExist:
+                datos = {'error': 'La sucursal seleccionada no existe'}
+                return JsonResponse(datos, status=400)        
         else:
-            datos ={'message':'Solicitud incorrecta'}
+            datos = {'message': 'Solicitud incorrecta'}
         return JsonResponse(datos)   
     
-    def eliminarSucursales(request,id):
+    def delete(self, request, id):
         if request.method == 'DELETE':
             sucursal = get_object_or_404(Sucursales, id_sucursal=id)
             sucursal.delete()
 
-            datos={'message':'Sucursal eliminada con exito'}
+            datos = {'message': 'Sucursal eliminada con éxito'}
         else:
-            datos = {'message':'Solicitud incorrecta'}
+            datos = {'message': 'Solicitud incorrecta'}
         
         return JsonResponse(datos)

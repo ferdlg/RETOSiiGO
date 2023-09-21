@@ -7,7 +7,7 @@ import json
 
 class InventariosView(View):
 
-    def verInventarios(self, request):
+    def get(self, request):
         inventario = Inventarios.objects.all()
         serializer = InventariosSerializer(inventario, many=True)
         if len(inventario)>0:
@@ -16,7 +16,7 @@ class InventariosView(View):
             datos= {'message':'Inventario no encontrado'}
         return datos
     
-    def addInventarios(self, request):
+    def post(self, request):
         json_data = json.loads.body(request.body)
         #obtener valore en el json
         id_producto = json_data['id_producto_fk']
@@ -27,3 +27,5 @@ class InventariosView(View):
         )
         datos = {'message':'Inventario registrado'}
         return JsonResponse(datos)
+    
+    #actualizar inventario en base a datos de un archivo excel 

@@ -7,7 +7,7 @@ import json
 
 class DetalleVentasView(View):
 
-    def verDetalleVentas(self, request, id):
+    def get(self, request, id):
         if id is not None and id>0:
             detalle = DetalleVentas.objects.filter(id_detalle=id).first()#el primer objeto encontrado que coincida con el id
             if (detalle):
@@ -26,8 +26,7 @@ class DetalleVentasView(View):
                 datos = {'message':'No hay detalles encontrados...'}
         return JsonResponse(datos)
     
-    def crearDetalleVentas(request):
-        if request.method == 'POST':
+    def post(request):
             json_data = json.loads(request.body) #ingresar datos json
             try:
                 id_usuario=json_data['id_usuario_fk']#obtener valores en el json
@@ -50,12 +49,9 @@ class DetalleVentasView(View):
                 return JsonResponse(datos, status = 400)
             except DetalleVentas.DoesNotExist:
                 datos={'error':'Uno o mas objetos relacionados no existen'}
-        else:
-            datos = {'message':'Solicitud incorrecta'}
-        return JsonResponse(datos)
+            return JsonResponse(datos)
     
-    def actualizarDetalleVenta(request, id):
-        if request.method =='PUT':
+    def put(request, id):
             DetalleVenta = DetalleVentas.objects.get(id_detalleVenta = id)
             json_data = json.loads(request.body)
             try:
@@ -77,6 +73,4 @@ class DetalleVentasView(View):
             except DetalleVenta.DoesNotExist:
                 datos = {'error':'El detalle seleccionado no existe'}
                 return JsonResponse(datos, status = 400)
-        else:
-            datos ={'message':'Solicitud incorrecta'}
-        return JsonResponse(datos)
+            return JsonResponse(datos)
