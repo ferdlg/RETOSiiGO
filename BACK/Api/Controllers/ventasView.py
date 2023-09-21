@@ -22,7 +22,7 @@ class VentaView(View):
                 datos = {'message': 'success', 'Ventas': serializer.data}
             else:
                 datos = {'message': 'No hay ventas encontradas'}
-            return JsonResponse(datos)
+        return JsonResponse(datos)
     
     def post(self, request):
         json_data = json.loads(request.body)#obtener el valor del campo en json 
