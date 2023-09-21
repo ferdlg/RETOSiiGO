@@ -30,7 +30,7 @@ class SucursalesView(View):
                     datos = {'message': 'success', 'Sucursales': serializer.data}
                 else:
                     datos = {'message': 'No hay sucursales encontradas'}
-                return JsonResponse(datos)
+            return JsonResponse(datos)
     
     def post(self, request):
         json_data = json.loads(request.body)
@@ -78,7 +78,7 @@ class SucursalesView(View):
                     bodega = Bodegas.objects.get(id_bodega=id_bodega)
                     sucursal.id_bodega_fk = bodega
 
-                sucursal.save()  # Guarda los cambios en la instancia de Sucursales
+                sucursal.save()  
 
                 datos = {'message': 'Sucursal actualizada con éxito'}
             except json.JSONDecodeError:
@@ -88,5 +88,5 @@ class SucursalesView(View):
             except Sucursales.DoesNotExist:
                 datos = {'error': 'La sucursal seleccionada no existe'}
                 return JsonResponse(datos, status=400)        
-           
+            return JsonResponse(datos)
     
