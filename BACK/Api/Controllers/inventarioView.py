@@ -1,7 +1,7 @@
-from models import Inventarios, Productos
+from Api.models import Inventarios, Productos
 from django.http.request import HttpRequest
 from django.http.response import JsonResponse
-from serializers import InventariosSerializer
+from .serializers import InventariosSerializer
 from django.views import View
 import json
 

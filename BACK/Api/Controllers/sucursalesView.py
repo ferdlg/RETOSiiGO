@@ -1,5 +1,5 @@
-from models import Sucursales, Bodegas
-from serializers import SucursalesSerializer
+from Api.models import Sucursales, Bodegas
+from .serializers import SucursalesSerializer
 from django.http import JsonResponse, request
 from django.shortcuts import get_object_or_404
 from django.views import View

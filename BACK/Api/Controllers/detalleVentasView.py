@@ -1,8 +1,8 @@
-from models import DetalleVentas, Usuarios, Ventas, Productos
+from Api.models import DetalleVentas, Usuarios, Ventas, Productos
 from django.views import View
 from django.http.request import HttpRequest
 from django.http.response import JsonResponse
-from serializers import DetalleVentasSerializer
+from .serializers import DetalleVentasSerializer
 import json
 
 class DetalleVentasView(View):

@@ -1,11 +1,12 @@
 from django.contrib import admin
-from Controllers.inventarioView import InventarioView
-from Controllers.facturaView import FacturaView
-from Controllers.detalleFacturaView import DetalleFacturaView
+from .Controllers.inventarioView import InventariosView
+from .Controllers.ventasView import VentaView
+from .Controllers.detalleVentasView import DetalleVentasView
 from django.urls import path
 
 urlpatterns = [
-    path('factura/',FacturaView , name="factura vista"),
-    path('detallefactura/',DetalleFacturaView , name="detalle factura vista"),
-    path('inventario/',InventarioView , name="Inventario"),
+    path('ventas/',VentaView.as_view() , name="venta vista"),
+    path('detalleVentas/',DetalleVentasView.as_view(), name="detalle ventas vista"),
+    path('detalleVenta/<int:id>',DetalleVentasView.as_view(), name="detalle venta vista"),
+    path('inventario/',InventariosView.as_view(), name="Inventario"),
 ]

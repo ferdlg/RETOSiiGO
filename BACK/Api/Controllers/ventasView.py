@@ -1,7 +1,7 @@
-from models import Ventas, Sucursales, DetalleVentas
+from Api.models import Ventas, Sucursales, DetalleVentas
 from django.http.request import HttpRequest
 from django.http.response import JsonResponse
-from serializers import VentasSerializer
+from .serializers import VentasSerializer
 from django.views import View
 import json
 

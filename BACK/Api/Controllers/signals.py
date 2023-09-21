@@ -1,6 +1,6 @@
 import django.dispatch
 from django.dispatch import Signal, receiver
-from models import Inventario, Bodega, Producto, Proveedor, estadoVenta, Venta
+from Api.models import Inventario, Bodega, Producto, Proveedor, estadoVenta, Venta
 from django.core.mail import send_mail
 
 #definir la señal de notificar al proveedor
