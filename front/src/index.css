@@ -37,6 +37,10 @@ h1{
 }
 
 /* Background color */
+.bg_blanco{
+  background-color: var(--blanco);
+}
+
 .bg_azulOscuro{
   background-color: var(--azulOscuro);
 }
@@ -54,6 +58,10 @@ h1{
 }
 
 /* Text color */
+.color_blanco{
+  color: var(--blanco);
+}
+
 .color_azulOscuro{
   color: var(--azulOscuro);
 }
@@ -91,22 +99,37 @@ h1{
 .btn_azulOscuro{
   background-color: var(--azulOscuro);
   color: var(--blanco);
+  border: none;
+  padding: 0.3em 0.6em;
+  border-radius: 0.3em;
 }
 .btn_azulClaro{
   background-color: var(--azulClaro);
   color: var(--blanco);
+  border: none;
+  padding: 0.3em 0.6em;
+  border-radius: 0.3em;
 }
 .btn_azulMedio{
   background-color: var(--azulMedio);
   color: var(--blanco);
+  border: none;
+  padding: 0.3em 0.6em;
+  border-radius: 0.3em;
 }
 .btn_verde{
   background-color: var(--verde);
   color: var(--blanco);
+  border: none;
+  padding: 0.3em 0.6em;
+  border-radius: 0.3em;
 }
 .btn_naranja{
   background-color: var(--naranja);
   color: var(--blanco);
+  border: none;
+  padding: 0.3em 0.6em;
+  border-radius: 0.3em;
 }
 /* btns hover*/
 .btn_azulOscuro:hover{
@@ -129,22 +152,27 @@ h1{
 .btn_outline_azulOscuro{
   border: 1px solid var(--azulOscuro);
   color: var(--azulOscuro);
+  border-radius: 0.3em;
 }
 .btn_outline_azulClaro{
   border: 1px solid var(--azulClaro);
   color: var(--azulClaro);
+  border-radius: 0.3em;
 }
 .btn_outline_azulMedio{
   border: 1px solid var(--azulMedio);
   color: var(--azulMedio);
+  border-radius: 0.3em;
 }
 .btn_outline_verde{
   border: 1px solid var(--verde);
   color: var(--verde);
+  border-radius: 0.3em;
 }
 .btn_outline_naranja{
   border: 1px solid var(--naranja);
   color: var(--naranja);
+  border-radius: 0.3em;
 }
 /* btns hover*/
 .btn_outline_azulOscuro:hover{
