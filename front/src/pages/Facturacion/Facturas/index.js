@@ -147,7 +147,7 @@ const Facturas = () => {
                           <button className='btn_outline_azulOscuro mx-2'>
                             -
                           </button>
-                          {row.cantidad}
+                          <input value={row.cantidad} style={{width:50}} className='text-center'/>
                           <button className='btn_outline_azulOscuro mx-2'>
                             +
                           </button>
@@ -166,7 +166,16 @@ const Facturas = () => {
                 </table>
               </div>
               <div className='border_azulOscuro p-3 d-flex justify-content-between align-items-center'>
-                <button className='btn_azulOscuro' data-bs-toggle="modal" data-bs-target="#agregarProducto">Agregar Producto</button>
+                <div className='d-flex'>
+                <Autocomplete
+                  id="agregarProducto"
+                  size="small"
+                  options={prodcuts}
+                  sx={{ width: 300 }}
+                  renderInput={(params) => <TextField {...params} label="Producto" />}
+                />
+                <button className='btn_azulOscuro'>Agregar Producto</button>
+                </div>
                 <div class="input-group w-25">
                   <span class="input-group-text">Total: </span>
                   <input class="form-control" disabled/>
@@ -176,31 +185,6 @@ const Facturas = () => {
             <div className="modal-footer">
               <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
               <button type="button" className="btn btn-primary">Registrar</button>
-            </div>
-          </div>
-        </div>
-      </div>
-      {/* Modal de agregar producto a Factura */}
-      <div className="modal fade" id="agregarProducto" tabIndex="-1" data-bs-backdrop="static" data-bs-keyboard="false" role="dialog" aria-labelledby="modalTitleId" aria-hidden="true">
-        <div className="modal-dialog modal-dialog-scrollable modal-dialog-centered modal-s" role="document">
-          <div className="modal-content">
-            <div className="modal-header bg_azulOscuro text-light">
-              <h5 className="modal-title" id="modalTitleId">Agregar Producto</h5>
-              <button type="button" className="btn-close bg_blanco" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div className="modal-body">
-              <div className='border_azulOscuro p-3 d-flex justify-content-center align-items-center'>
-              <Autocomplete
-                id="combo-box-demo"
-                options={prodcuts}
-                sx={{ width: 300 }}
-                renderInput={(params) => <TextField {...params} label="Producto" />}
-              />
-              </div>
-            </div>
-            <div className="modal-footer">
-              <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-              <button type="button" className="btn btn-primary">Agregar</button>
             </div>
           </div>
         </div>

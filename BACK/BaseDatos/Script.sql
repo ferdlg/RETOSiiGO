@@ -148,23 +148,23 @@ VALUES
   ('Bodega13'),
   ('Bodega14'),
   ('Bodega15');
-  INSERT INTO SUCURSALES (nombre_sucursal, ciudad, direccion, email, id_bodega_fk)
+  INSERT INTO SUCURSALES (nombre_sucursal, ciudad, direccion, email, id_bodega_fk, estado_inactiva)
 VALUES
-  ('Sucursal1', 'Ciudad1', 'Dirección1', 'sucursal1@example.com', 1),
-  ('Sucursal2', 'Ciudad2', 'Dirección2', 'sucursal2@example.com', 2),
-  ('Sucursal3', 'Ciudad3', 'Dirección3', 'sucursal3@example.com', 3),
-  ('Sucursal4', 'Ciudad4', 'Dirección4', 'sucursal4@example.com', 1),
-  ('Sucursal5', 'Ciudad5', 'Dirección5', 'sucursal5@example.com', 2),
-  ('Sucursal6', 'Ciudad6', 'Dirección6', 'sucursal6@example.com', 3),
-  ('Sucursal7', 'Ciudad7', 'Dirección7', 'sucursal7@example.com', 1),
-  ('Sucursal8', 'Ciudad8', 'Dirección8', 'sucursal8@example.com', 2),
-  ('Sucursal9', 'Ciudad9', 'Dirección9', 'sucursal9@example.com', 3),
-  ('Sucursal10', 'Ciudad10', 'Dirección10', 'sucursal10@example.com', 1),
-  ('Sucursal11', 'Ciudad11', 'Dirección11', 'sucursal11@example.com', 2),
-  ('Sucursal12', 'Ciudad12', 'Dirección12', 'sucursal12@example.com', 3),
-  ('Sucursal13', 'Ciudad13', 'Dirección13', 'sucursal13@example.com', 1),
-  ('Sucursal14', 'Ciudad14', 'Dirección14', 'sucursal14@example.com', 2),
-  ('Sucursal15', 'Ciudad15', 'Dirección15', 'sucursal15@example.com', 3);
+  ('Sucursal1', 'Ciudad1', 'Dirección1', 'sucursal1@example.com', 1, 0),
+  ('Sucursal2', 'Ciudad2', 'Dirección2', 'sucursal2@example.com', 2, 0),
+  ('Sucursal3', 'Ciudad3', 'Dirección3', 'sucursal3@example.com', 3, 0),
+  ('Sucursal4', 'Ciudad4', 'Dirección4', 'sucursal4@example.com', 1, 0),
+  ('Sucursal5', 'Ciudad5', 'Dirección5', 'sucursal5@example.com', 2, 0),
+  ('Sucursal6', 'Ciudad6', 'Dirección6', 'sucursal6@example.com', 3, 0),
+  ('Sucursal7', 'Ciudad7', 'Dirección7', 'sucursal7@example.com', 1, 0),
+  ('Sucursal8', 'Ciudad8', 'Dirección8', 'sucursal8@example.com', 2, 0),
+  ('Sucursal9', 'Ciudad9', 'Dirección9', 'sucursal9@example.com', 3, 0),
+  ('Sucursal10', 'Ciudad10', 'Dirección10', 'sucursal10@example.com', 1, 0),
+  ('Sucursal11', 'Ciudad11', 'Dirección11', 'sucursal11@example.com', 2, 0),
+  ('Sucursal12', 'Ciudad12', 'Dirección12', 'sucursal12@example.com', 3, 0),
+  ('Sucursal13', 'Ciudad13', 'Dirección13', 'sucursal13@example.com', 1, 0),
+  ('Sucursal14', 'Ciudad14', 'Dirección14', 'sucursal14@example.com', 2, 0),
+  ('Sucursal15', 'Ciudad15', 'Dirección15', 'sucursal15@example.com', 3, 0);
   INSERT INTO PERSONAS (id_usuario_fk, nombre_persona, apellido_persona, numero_documento, numero_contacto, id_sucursal_fk)
 VALUES
   (1, 'Nombre1', 'Apellido1', 1234567891, 9876543211, 1),
