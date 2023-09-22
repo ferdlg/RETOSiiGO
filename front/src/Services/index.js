@@ -14,7 +14,20 @@ const apiService = {
             console.error("API ERROR: SUCURSALES: "+error);
             throw error;
         }
-            
+        
+    },
+    
+    getVentas : async () => {
+        try {
+            const urlVentas = url + "ventas/";
+            const response = await axios.get(urlVentas);
+            const data = response.data;
+            console.log(data);
+            return data;
+        } catch (error) {
+            console.error("API ERROR: VENTAS: "+error);
+            throw error;
+        }
     },
 }
 
