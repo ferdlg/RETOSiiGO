@@ -29,7 +29,7 @@ class SucursalesView(View):
                 if len(sucursal) > 0:
                     datos = {'message': 'success', 'Sucursales': serializer.data}
                 else:
-                    datos = {'message': 'No hay sucursales encontradas'}
+                    datos = {'message': 'No hay sucursales registradas'}
             return JsonResponse(datos)
     
     def post(self, request):
