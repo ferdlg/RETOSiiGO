@@ -1,11 +1,17 @@
 from Api.models import DetalleVentas, Usuarios, Ventas, Productos
 from django.views import View
 from django.http.request import HttpRequest
+from django.utils.decorators import method_decorator
+from django.views.decorators.csrf import csrf_exempt
 from django.http.response import JsonResponse
 from .serializers import DetalleVentasSerializer
 import json
 
 class DetalleVentasView(View):
+    @method_decorator(csrf_exempt) 
+    def dispatch(self, request, *args, **kwargs):
+        return super().dispatch(request, *args, **kwargs)
+
 
     def get(self, request, id):
         if id is not None and id>0:
@@ -26,21 +32,19 @@ class DetalleVentasView(View):
                 datos = {'message':'No hay detalles encontrados...'}
         return JsonResponse(datos)
     
-    def post(request):
+    def post(self, request):
             json_data = json.loads(request.body) #ingresar datos json
             try:
-                id_usuario=json_data['id_usuario_fk']#obtener valores en el json
-                usuario = Usuarios.objects.get(id_usuario=id_usuario)#obtener la instancia con la fk correspondiente
                 id_venta=json_data['id_venta_fk']
                 venta = Ventas.objects.get(id_venta=id_venta)
                 id_producto =json_data['id_producto_fk']
                 producto = Productos.objects.get(id_producto=id_producto)
                 
                 DetalleVentas.objects.create(         #crear instancia detalleVentas
-                    id_usuario_fk= usuario,
                     id_venta_fk= venta,
                     id_producto_fk= producto,
-                    cantidad_producto = json_data['cantidad_producto']
+                    cantidad_producto = json_data['cantidad_producto'],
+                    subtotal = json_data['subtotal']
                 )
                 datos ={'message':'Detalle de venta registrado'}
                 return JsonResponse(datos)
@@ -51,10 +55,11 @@ class DetalleVentasView(View):
                 datos={'error':'Uno o mas objetos relacionados no existen'}
             return JsonResponse(datos)
     
-    def put(request, id):
-            DetalleVenta = DetalleVentas.objects.get(id_detalleVenta = id)
+    def put(self, request, id):
+            DetalleVenta = DetalleVentas.objects.get(id_detalle = id)
             json_data = json.loads(request.body)
             try:
+                
                 if 'id_producto_fk' in json_data:
                     id_producto = json_data['id_producto_fk']
                     producto = Productos.objects.get(id_producto=id_producto)

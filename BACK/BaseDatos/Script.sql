@@ -106,6 +106,22 @@ CREATE TABLE PROVEEDORES(
     foreign key(id_producto_fk) references productos(id_producto)
 );
 
+drop trigger if exists actualiza_stock_inventario;
+delimiter $$
+create trigger actualiza_stock_inventario after insert on detalle_ventas
+for each row
+begin
+	declare cantidad_producto INT;
+    declare stock_actual INT;
+    declare estado_venta boolean;
+    select cantidad into cantidad_producto from detalle_ventas where id_venta_fk = NEW.id_venta_fk;
+    select stock into stock_actual from inventarios where id_producto = NEW.id_producto_fk;
+    if stock_actual>=cantidad_producto THEN
+		update inventarios
+		set stock = stock-cantidad_producto
+		where id_producto = NEW.id_producto_fk;
+	end if;
+end $$
 
 INSERT INTO ROLES (nombre_rol)
 VALUE

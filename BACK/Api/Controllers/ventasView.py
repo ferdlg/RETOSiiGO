@@ -36,7 +36,7 @@ class VentaView(View):
         json_data = json.loads(request.body)#obtener el valor del campo en json 
         try:
             id_persona = json_data['id_persona_fk']#obtener la instancia del campo
-            persona = Personas.objects.get(id_per7 = id_persona)
+            persona = Personas.objects.get(id_persona = id_persona)
         
             Ventas.objects.create(
                 id_persona_fk = persona,
@@ -53,7 +53,7 @@ class VentaView(View):
                 datos = {'error': 'La persona seleccionada no existe'}
                 return JsonResponse(datos, status=400)
     
-    def put(self,request, id):
+    def put(request, id):
             venta = Ventas.objects.get(id_venta = id)
             json_data = json.loads(request.body)
             try:
